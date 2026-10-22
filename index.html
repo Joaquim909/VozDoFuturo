@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Voz do Futuro</title>
+<style>
+:root{--bg:#071C1A;--bg2:#0B2925;--card:#123A34;--cl:#185047;--yellow:#F5C542;--orange:#F28C28;--green:#58CC02;--blue:#1CB0F6;--red:#FF4B4B;--purple:#9B72CF;--text:#F4F7F5;--sec:#A9C2BC;--border:#28645B;--black:#061311;color-scheme:dark}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+#app{max-width:480px;margin:0 auto;height:100%;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+.hdr{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;background:var(--bg2);border-bottom:1px solid var(--border)}
+.hdr b{color:var(--yellow);font-size:16px}
+.pbtn{display:flex;align-items:center;gap:6px;background:var(--card);border:2px solid var(--border);border-bottom-width:4px;border-radius:16px;padding:2px 10px;cursor:pointer;color:var(--text)}
+.pbtn span{font-weight:bold;font-size:13px}
+.body{flex:1;overflow-y:auto;padding:15px}
+.auth{padding:20px;display:flex;flex-direction:column;justify-content:center;min-height:100%}
+.logo{color:var(--yellow);font-size:26px;font-weight:bold;text-align:center;margin:0 0 5px}
+.sub{color:var(--sec);font-size:13px;text-align:center;margin-bottom:25px}
+input{width:100%;background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);margin-bottom:12px;font-size:15px}
+button{font-family:inherit;cursor:pointer}
+.btn{display:block;width:100%;padding:14px;border-radius:12px;border:0;border-bottom:4px solid rgba(0,0,0,.2);font-weight:bold;font-size:15px;color:#fff}
+.nav{display:flex;justify-content:space-around;padding:12px;background:var(--bg2);border-top:1px solid var(--border)}
+.nav button{background:none;border:0;color:var(--text);font-size:12px}
+.card{background:var(--card);border-radius:10px;padding:15px;margin-bottom:12px;border:1px solid var(--border)}
+.big{background:var(--card);border-radius:18px;padding:16px;border:1px solid var(--border);margin-bottom:14px}
+h2{font-size:18px;margin:12px 0}
+h3{color:var(--yellow);font-size:15px;margin:8px 0 10px}
+.sec{color:var(--sec)}.sm{font-size:12px}
+.pb{height:10px;background:var(--bg2);border-radius:5px;overflow:hidden;margin-top:6px}.pb i{display:block;height:100%}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.pill{background:var(--yellow);color:var(--black);font-weight:bold;font-size:12px;padding:5px 12px;border-radius:14px}
+.chip{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:10px 4px;text-align:center}
+.chip b{display:block;font-size:15px}.chip small{color:var(--sec);font-size:10px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gc{background:var(--card);padding:15px;border-radius:10px;border:1px solid var(--border);border-top-width:4px;text-align:left;color:var(--text)}
+.gc b{display:block;margin-top:8px}.gc small{color:var(--sec);font-size:11px}
+.q3{flex:1;background:var(--card);border:2px solid;border-radius:14px;padding:12px;font-weight:bold;font-size:15px}
+.task{display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:10px;margin-top:10px}
+.task.done{border-color:var(--green);background:rgba(88,204,2,.1)}
+.tc{width:38px;height:38px;border-radius:50%;background:var(--cl);display:flex;align-items:center;justify-content:center;font-size:18px;flex:none}
+.done .tc{background:var(--green)}
+.xp{background:var(--yellow);color:var(--black);font-weight:bold;font-size:11px;padding:5px 9px;border-radius:10px;white-space:nowrap}.done .xp{background:var(--green)}
+.fc{background:var(--card);color:var(--text);padding:8px 14px;border-radius:20px;border:1px solid var(--border)}.fc.on{background:var(--cl);border-color:var(--yellow)}
+.opt{display:flex;gap:10px;width:100%;text-align:left;padding:14px;border-radius:8px;margin-bottom:10px;border:1px solid var(--border);background:var(--card);color:var(--text);font-size:15px}
+.opt b{color:var(--yellow)}
+.sc{display:inline-block;background:var(--cl);font-size:11px;font-weight:bold;padding:4px 10px;border-radius:10px;margin-right:8px}
+.fb{background:var(--cl);padding:12px;border-radius:8px;margin-top:10px}
+.sbox{flex:1;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:12px 4px;text-align:center}.sbox b{font-size:24px;display:block}
+.mk{min-width:54px;text-align:center;background:var(--bg2);border:1px solid var(--border);border-radius:10px;padding:8px 10px;font-weight:bold;font-size:13px}
+.rv{background:var(--card);border-radius:12px;padding:12px;margin-bottom:10px;border-left:5px solid var(--border)}
+.ov{position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;padding:20px;z-index:20}
+.ov.bt{align-items:flex-end;padding:0}
+.md{width:100%;max-width:340px;background:var(--card);border:2px solid var(--border);border-radius:20px;padding:20px;text-align:center}
+.ed{width:100%;max-width:480px;background:var(--card);border-radius:28px 28px 0 0;padding:18px;max-height:92%;overflow-y:auto;padding-bottom:calc(18px + env(safe-area-inset-bottom,0px))}
+.ch{width:52px;height:52px;border-radius:14px;margin-right:9px;border:2px solid var(--border);background:var(--bg2);font-size:21px;color:#fff;flex:none}
+.ch.on{border:3px solid var(--yellow)}
+.sg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:8px}
+.sg div{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:14px 4px;text-align:center}.sg b{font-size:16px;display:block}.sg small{color:var(--sec);font-size:10px}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.ag div{background:var(--card);border:1px solid var(--yellow);border-radius:14px;padding:12px;text-align:center}.ag .lk{opacity:.45;border-color:var(--border)}
+.ag span{font-size:26px}.ag b{display:block;font-size:13px;margin-top:4px}.ag small{color:var(--sec);font-size:10px}
+.sm2{display:flex;align-items:center;gap:12px;width:100%;padding:14px;background:var(--card);border:0;border-bottom:1px solid var(--border);color:var(--text);text-align:left}
+.sm2.on{background:var(--cl);border-left:4px solid var(--yellow)}
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script>
+// ===== Constantes =====
+const MAXL=100,XPC=10,NQ=5,T0=50,TB=3,TP=12;
+const TASKS=[
+{id:'quiz1',i:'📝',t:'Concluir 1 quiz',g:1,xp:20},
+{id:'correct5',i:'✅',t:'Acertar 5 questões',g:5,xp:30},
+{id:'mathpt',i:'📐',t:'Responder 3 questões de Português ou Matemática',g:3,xp:20},
+{id:'challenge',i:'⚡',t:'Jogar um Desafio 50s',g:1,xp:25},
+{id:'hard',i:'🔥',t:'Concluir um quiz de nível Difícil',g:1,xp:40},
+{id:'perfect',i:'🏅',t:'Gabaritar um quiz (100% de acertos)',g:1,xp:50}];
+const ACH=[
+{i:'🌱',t:'Primeiro passo',d:'Conclua 1 quiz',c:(s)=>s.tq>=1},
+{i:'📚',t:'Dedicação',d:'Conclua 10 quizzes',c:(s)=>s.tq>=10},
+{i:'🏅',t:'Gabaritou!',d:'Acerte tudo em um quiz',c:(s)=>s.pq>=1},
+{i:'🎯',t:'Mira certeira',d:'Acerte 50 questões',c:(s)=>s.tc>=50},
+{i:'🔥',t:'Em chamas',d:'Estude 3 dias seguidos',c:(s,u)=>(u.streak||1)>=3},
+{i:'⭐',t:'Nível 5',d:'Chegue ao nível 5',c:(s,u)=>(u.level||1)>=5}];
+const DA={skin:'#C98B5A',hair:'#241A17',paint:'#E85D5D',accessory:'none',clothes:'green'};
+
+// ===== Questões (formato: id, vestibular, matéria, dificuldade, enunciado, alternativas, gabarito, explicação, fonte) =====
+// Para adicionar mais questões, basta incluir novas linhas Q(...) neste array.
+const Q=(id,v,s,d,st,o,a,e,f)=>({id,vestibular:v,subject:s,difficulty:d,statement:st,options:o,correctAnswer:a,explanation:e,fonte:f});
+const QS=[
+Q('e91','ENEM','Física','Fácil','Em uma colisão, a parte deformável da carroceria aumenta a segurança dos ocupantes. Qual é o principal efeito físico dessa deformação?',['Aumenta a energia cinética do carro.','Absorve parte da energia cinética durante o impacto.','Elimina a quantidade de movimento do sistema.','Impede que qualquer força atue sobre os ocupantes.'],'B','A zona de deformação absorve energia, reduzindo o impacto transmitido aos ocupantes.','Questão adaptada • ENEM 2024 • 2º dia • questão 91 • caderno azul'),
+Q('e136','ENEM','Matemática','Fácil','Um carro percorre 30 km por dia durante 7 dias e consome 1 m³ de GNV a cada 13 km. Há cilindros de 10, 14, 17, 21 e 25 m³. Qual a menor capacidade que permite rodar a semana toda?',['10 m³','14 m³','17 m³','21 m³','25 m³'],'C','30 × 7 = 210 km; 210 ÷ 13 ≈ 16,15 m³. Logo, 17 m³.','Questão adaptada • ENEM 2025 • questão 136 • caderno azul'),
+Q('p24','PSC','Geografia','Fácil','No PSC/UFAM 2024, uma questão trata das TIC no monitoramento ambiental. Qual aplicação corresponde a esse uso?',['Acelerar a exploração mineral em áreas protegidas.','Diminuir a transparência dos dados ambientais.','Reduzir as áreas de preservação permanente.','Automatizar processos de fiscalização ambiental.'],'D','As TIC apoiam o monitoramento e automatizam etapas da fiscalização.','Questão adaptada • PSC 2024 • 2ª etapa • questão 24'),
+Q('p31','PSC','Biologia','Médio','Quando um neurônio é estimulado, há entrada de íons sódio na membrana. Como se chama a mudança inicial do potencial elétrico?',['Despolarização.','Hiperpolarização.','Limiar de membrana.','Repolarização.'],'A','A entrada de Na⁺ torna o interior menos negativo: despolarização.','Questão adaptada • PSC 2024 • 2ª etapa • questão 31'),
+Q('p47','PSC','Matemática','Difícil','Uma população é modelada por f(t) = f₀·e^(0,05t). Sabendo que ln(3) ≈ 1,10, em quantos anos ela triplica?',['10 anos','16 anos','18 anos','20 anos','22 anos'],'E','3 = e^(0,05t) ⇒ t ≈ 1,10/0,05 = 22 anos.','Questão adaptada • PSC 2024 • 2ª etapa • questão 47'),
+Q('s13','SIS','História','Fácil','Na economia açucareira da América portuguesa no século XVI, quais elementos foram centrais na produção?',['Pequena propriedade e trabalho assalariado.','Produção para o mercado interno e rotação de culturas.','Monocultura e mão de obra livre.','Latifúndio e trabalho escravizado.'],'D','Grandes propriedades, monocultura de exportação e trabalho escravizado.','Questão adaptada • SIS/UEA 2024 • Acompanhamento III • questão 13'),
+Q('s24','SIS','Tecnologia','Médio','Qual par representa tecnologias próprias da Indústria 4.0?',['Eletricidade e integração de sistemas.','Motor a combustão e internet das coisas.','Linha de montagem e computação em nuvem.','Big data e robótica avançada.'],'D','Big data e robótica avançada são associadas à Indústria 4.0.','Questão adaptada • SIS/UEA 2024 • Acompanhamento III • questão 24'),
+Q('s49','SIS','Física','Difícil','Um dissipador de alumínio de 150 g esfria de 80 °C para 20 °C (c = 0,2 cal/g·°C; 1 cal = 4 J; potência 180 W). Quanto tempo leva?',['20 s','32 s','40 s','48 s'],'C','Q = 150·0,2·60 = 1800 cal = 7200 J; t = 7200/180 = 40 s.','Questão adaptada • SIS/UEA 2024 • Acompanhamento III • questão 49'),
+// ENEM
+Q('ef1','ENEM','Matemática','Fácil','Uma escola tem 120 alunos. Se 25% faltaram, quantos compareceram?',['30','60','90','100'],'C','25% de 120 = 30; 120 − 30 = 90.'),
+Q('ef2','ENEM','Português','Fácil','Em uma campanha ambiental, a finalidade de usar linguagem clara e objetiva é:',['Dificultar a compreensão.','Facilitar a compreensão pelo público.','Usar só palavras científicas.','Tornar o texto mais extenso.'],'B','Linguagem clara facilita a compreensão da mensagem.'),
+Q('ef3','ENEM','Biologia','Fácil','Qual organela é responsável pela produção de energia na forma de ATP?',['Ribossomo','Núcleo','Mitocôndria','Lisossomo'],'C','As mitocôndrias realizam a respiração celular e produzem ATP.'),
+Q('ef4','ENEM','Geografia','Fácil','Qual é o bioma predominante na região Norte do Brasil?',['Caatinga','Cerrado','Floresta Amazônica','Pampa'],'C','A Floresta Amazônica predomina no Norte.'),
+Q('ef5','ENEM','Matemática','Fácil','Uma receita usa 2 xícaras de farinha para 3 ovos. Com 9 ovos, quantas xícaras?',['4','5','6','8'],'C','9 ovos = 3 × 3 ovos; 3 × 2 = 6 xícaras.'),
+Q('em1','ENEM','Matemática','Médio','Uma camiseta de R$ 80,00 recebe 15% de desconto. Preço final?',['R$ 60,00','R$ 68,00','R$ 72,00','R$ 75,00'],'B','15% de 80 = 12; 80 − 12 = 68.'),
+Q('em2','ENEM','Português','Médio','Em “Embora estivesse cansado, Pedro terminou o trabalho”, “embora” expressa:',['Causa','Concessão','Conclusão','Tempo'],'B','“Embora” introduz uma concessão.'),
+Q('em3','ENEM','Física','Médio','Um carro percorre 180 km em 3 h com velocidade constante. Velocidade média?',['30 km/h','50 km/h','60 km/h','90 km/h'],'C','180 ÷ 3 = 60 km/h.'),
+Q('em4','ENEM','Química','Médio','Uma solução de pH 3, comparada a uma de pH 7, é:',['Mais básica.','Mais ácida.','Neutra.','Igual.'],'B','pH menor que 7 indica solução ácida.'),
+Q('ed1','ENEM','Matemática','Difícil','Uma população de 2.000 indivíduos dobra a cada 5 anos. Quantos haverá após 15 anos?',['4.000','6.000','8.000','16.000'],'D','Três períodos: 2.000 × 2³ = 16.000.'),
+Q('ed2','ENEM','Matemática','Difícil','Capital de R$ 1.000 a juros compostos de 10% ao mês. Montante após 2 meses?',['R$ 1.100','R$ 1.200','R$ 1.210','R$ 1.220'],'C','1000 × 1,1² = 1.210.'),
+Q('ed3','ENEM','Português','Difícil','Em “A leitura amplia o vocabulário; logo, quem lê mais se comunica melhor”, “logo” introduz:',['Oposição','Conclusão','Condição','Comparação'],'B','“Logo” é conjunção conclusiva.'),
+Q('ed4','ENEM','Física','Difícil','Um objeto de 10 kg sofre força resultante de 30 N. Sua aceleração é:',['1 m/s²','2 m/s²','3 m/s²','30 m/s²'],'C','F = m·a ⇒ a = 30/10 = 3 m/s².'),
+// PSC
+Q('pf1','PSC','Matemática','Fácil','Qual é o resultado de 7 × 8?',['54','56','58','64'],'B','7 × 8 = 56.'),
+Q('pf2','PSC','Português','Fácil','Assinale a palavra escrita corretamente:',['Exceção','Excessão','Esceção','Eceção'],'A','A grafia correta é “exceção”.'),
+Q('pf3','PSC','Geografia','Fácil','O maior estado brasileiro em extensão territorial é:',['Amazonas','São Paulo','Bahia','Paraná'],'A','O Amazonas é o maior estado do Brasil.'),
+Q('pf4','PSC','História','Fácil','Quem comandou a expedição portuguesa que chegou ao Brasil em 1500?',['Pedro Álvares Cabral','Tiradentes','Dom Pedro II','Getúlio Vargas'],'A','A expedição foi comandada por Pedro Álvares Cabral.'),
+Q('pm1','PSC','Matemática','Médio','O preço de um produto subiu de R$ 200 para R$ 240. Qual o aumento percentual?',['10%','15%','20%','25%'],'C','40 ÷ 200 = 0,20 = 20%.'),
+Q('pm2','PSC','Português','Médio','Em qual alternativa há um substantivo coletivo?',['Aluno','Cardume','Peixe','Rio'],'B','“Cardume” designa um conjunto de peixes.'),
+Q('pm3','PSC','Geografia','Médio','A Zona Franca de Manaus foi criada para:',['Estimular atividades econômicas na Amazônia.','Reduzir a população de Manaus.','Eliminar a indústria amazônica.','Impedir a entrada de produtos.'],'A','Busca promover o desenvolvimento econômico da região.'),
+Q('pm4','PSC','Química','Médio','O símbolo químico do sódio é:',['S','So','Na','Sd'],'C','Na, do latim “natrium”.'),
+Q('pd1','PSC','Matemática','Difícil','As raízes de x² − 5x + 6 = 0 são:',['1 e 6','2 e 3','−2 e −3','1 e 5'],'B','Soma 5 e produto 6: raízes 2 e 3.'),
+Q('pd2','PSC','Matemática','Difícil','Catetos de 6 cm e 8 cm. Qual a hipotenusa?',['9 cm','10 cm','12 cm','14 cm'],'B','√(36 + 64) = 10 cm.'),
+Q('pd3','PSC','Português','Difícil','Em “Os livros que comprei são interessantes”, a palavra “que” é:',['Conjunção integrante','Pronome relativo','Advérbio','Preposição'],'B','Retoma “os livros”: pronome relativo.'),
+Q('pd4','PSC','Física','Difícil','Em queda livre (g = 10 m/s²) a partir do repouso, qual a velocidade após 3 s?',['10 m/s','20 m/s','30 m/s','45 m/s'],'C','v = g·t = 30 m/s.'),
+// SIS
+Q('sf1','SIS','Matemática','Fácil','Quanto é 120 ÷ 4?',['20','25','30','40'],'C','120 ÷ 4 = 30.'),
+Q('sf2','SIS','Português','Fácil','Qual é o plural de “cidadão”?',['Cidadões','Cidadãos','Cidadães','Cidadans'],'B','O plural é “cidadãos”.'),
+Q('sf3','SIS','Biologia','Fácil','Qual órgão bombeia o sangue no corpo humano?',['Pulmão','Fígado','Coração','Rim'],'C','O coração bombeia o sangue.'),
+Q('sf4','SIS','Geografia','Fácil','O Rio Amazonas deságua em qual oceano?',['Pacífico','Atlântico','Índico','Glacial Ártico'],'B','Deságua no Atlântico.'),
+Q('sm1','SIS','Matemática','Médio','Um produto de R$ 150,00 tem 20% de desconto. Preço final?',['R$ 120,00','R$ 125,00','R$ 130,00','R$ 135,00'],'A','20% de 150 = 30; 150 − 30 = 120.'),
+Q('sm2','SIS','Português','Médio','Qual palavra é proparoxítona?',['Café','Amigo','Lâmpada','Jardim'],'C','LÂM-pa-da: tônica na antepenúltima sílaba.'),
+Q('sm3','SIS','História','Médio','A Lei Áurea, que aboliu a escravidão no Brasil, é de:',['1822','1850','1888','1889'],'C','Assinada em 13 de maio de 1888.'),
+Q('sm4','SIS','Química','Médio','A passagem do gelo para o estado líquido chama-se:',['Fusão','Solidificação','Condensação','Sublimação'],'A','Sólido → líquido é fusão.'),
+Q('sd1','SIS','Matemática','Difícil','A soma dos 10 primeiros termos da PA (2, 4, 6, ...) é:',['55','100','110','120'],'C','a₁₀ = 20; S = 10·(2 + 20)/2 = 110.'),
+Q('sd2','SIS','Matemática','Difícil','Uma urna tem 3 bolas vermelhas e 7 azuis. Probabilidade de sortear uma vermelha?',['3/7','3/10','7/10','1/3'],'B','3 favoráveis em 10.'),
+Q('sd3','SIS','Português','Difícil','Em “Fez tudo conforme as regras”, “conforme” expressa:',['Conformidade','Oposição','Causa','Finalidade'],'A','Indica algo feito de acordo com outra coisa.'),
+Q('sd4','SIS','Física','Difícil','A energia cinética de um corpo de 2 kg a 3 m/s é:',['3 J','6 J','9 J','18 J'],'C','Ec = ½·2·9 = 9 J.')
+];
+
+// ===== Utilidades =====
+const shuf=a=>{a=[...a];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a};
+const p2=n=>String(n).padStart(2,'0');
+const dk=(d=new Date())=>`${d.getFullYear()}-${p2(d.getMonth()+1)}-${p2(d.getDate())}`;
+const ydk=()=>{const d=new Date();d.setDate(d.getDate()-1);return dk(d)};
+const getDaily=u=>u&&u.daily&&u.daily.date===dk()?u.daily:{date:dk(),progress:{},done:{}};
+const fonte=q=>q.fonte||`Questão autoral • estilo ${q.vestibular}`;
+const ls={get(k){try{return JSON.parse(localStorage.getItem(k))}catch(e){return null}},set(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}},del(k){try{localStorage.removeItem(k)}catch(e){}}};
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const stats=u=>{const h=u.history||[];const tq=h.length,tc=h.reduce((s,x)=>s+(x.correct||0),0),tt=h.reduce((s,x)=>s+(x.answered??x.total??0),0);return{tq,tc,tw:Math.max(tt-tc,0),pq:h.filter(x=>x.total>0&&x.correct===x.total).length,acc:tt?Math.round(tc/tt*100):0}};
+const pb=(c,m,col='var(--yellow)')=>`<div class="pb"><i style="width:${m>0?Math.min(Math.max(c/m*100,0),100):0}%;background:${col}"></i></div>`;
+
+// Avatar em SVG
+function av(a,sz=80){a=a||DA;
+const cl={green:'#26795F',blue:'#3D8FC4',orange:'#D87824',purple:'#7955A6'}[a.clothes]||'#26795F';
+let x=`<svg width="${sz}" height="${sz}" viewBox="0 0 100 100" style="flex:none"><ellipse cx="50" cy="96" rx="30" ry="4" fill="rgba(0,0,0,.25)"/>`;
+x+=`<path d="M20 100Q20 74 50 74Q80 74 80 100Z" fill="${cl}"/><rect x="42" y="62" width="16" height="16" rx="6" fill="${a.skin}"/><ellipse cx="22" cy="44" rx="6" ry="8" fill="${a.skin}"/><ellipse cx="78" cy="44" rx="6" ry="8" fill="${a.skin}"/><circle cx="50" cy="42" r="28" fill="${a.skin}" stroke="rgba(0,0,0,.1)" stroke-width="1.5"/>`;
+x+=`<path d="M22 40Q22 12 50 12Q78 12 78 40Q66 26 50 28Q34 26 22 40Z" fill="${a.hair}"/>`;
+if(a.paint&&a.paint!=='none')x+=`<rect x="27" y="46" width="4" height="14" rx="2" fill="${a.paint}"/>`;
+x+=`<rect x="31" y="34" width="13" height="3" rx="1.5" fill="#261710"/><rect x="56" y="34" width="13" height="3" rx="1.5" fill="#261710"/>`;
+x+=`<ellipse cx="38" cy="46" rx="6" ry="7" fill="#fff"/><ellipse cx="62" cy="46" rx="6" ry="7" fill="#fff"/><ellipse cx="38" cy="47" rx="3" ry="4" fill="#1E120B"/><ellipse cx="62" cy="47" rx="3" ry="4" fill="#1E120B"/><circle cx="40" cy="44" r="1.3" fill="#fff"/><circle cx="64" cy="44" r="1.3" fill="#fff"/>`;
+x+=`<ellipse cx="30" cy="58" rx="5" ry="3" fill="rgba(232,93,93,.35)"/><ellipse cx="70" cy="58" rx="5" ry="3" fill="rgba(232,93,93,.35)"/><path d="M42 61Q50 69 58 61" stroke="#261710" stroke-width="2.5" fill="none" stroke-linecap="round"/>`;
+if(a.accessory==='glasses')x+=`<rect x="28" y="38" width="20" height="16" rx="5" fill="rgba(255,255,255,.15)" stroke="#111" stroke-width="2.5"/><rect x="52" y="38" width="20" height="16" rx="5" fill="rgba(255,255,255,.15)" stroke="#111" stroke-width="2.5"/><rect x="48" y="45" width="4" height="2.5" fill="#111"/>`;
+if(a.accessory==='cocar'){['#E85D5D','#F5C542','#49B675','#4EA8DE','#9B72CF'].forEach((c,i)=>{x+=`<ellipse cx="${28+i*11}" cy="${10+Math.abs(i-2)*3}" rx="5" ry="13" fill="${c}" transform="rotate(${(i-2)*18} ${28+i*11} 18)"/>`});x+=`<rect x="26" y="16" width="48" height="7" rx="3.5" fill="#7A4D2A"/>`}
+if(a.accessory==='necklace'){x+=`<path d="M32 76Q50 90 68 76" stroke="#F5C542" stroke-width="1.5" fill="none"/>`;[[36,80,'#F5C542'],[43,85,'#E85D5D'],[50,87,'#4EA8DE'],[57,85,'#49B675'],[64,80,'#F5C542']].forEach(b=>{x+=`<circle cx="${b[0]}" cy="${b[1]}" r="3" fill="${b[2]}"/>`})}
+return x+'</svg>'}
+
+// ===== Estado =====
+const S={screen:'login',user:null,users:ls.get('@vdf_users')||[],mode:'Vestibulares',vest:'ENEM',diff:'Fácil',subj:'Principais',qs:[],qi:0,sel:null,conf:false,time:T0,timer:null,ans:[],review:[],speaking:false,modal:false,avEd:false,draft:null,r:{}};
+const cu=ls.get('@vdf_current_user');
+if(cu){S.user=cu;S.screen='dashboard'}
+const $=id=>document.getElementById(id);
+const val=id=>($(id)?$(id).value:'')||'';
+const go=s=>{stopSpeech();stopTimer();S.screen=s;S.modal=false;R()};
+
+async function persist(patch){
+ if(!S.user)return;const u={...S.user,...patch};
+ S.users=S.users.map(x=>x.id===u.id?u:x);S.user=u;
+ ls.set('@vdf_users',S.users);ls.set('@vdf_current_user',u)}
+
+// ===== Auth =====
+function login(){
+ const e=val('le').trim().toLowerCase(),p=val('lp');
+ if(!e||!p)return alert('Preencha o e-mail e a senha.');
+ const u=S.users.find(x=>x.email.toLowerCase()===e&&x.password===p);
+ if(!u)return alert('E-mail ou senha incorretos.');
+ S.user=u;ls.set('@vdf_current_user',u);go('dashboard')}
+function register(){
+ const n=val('rn').trim(),e=val('re').trim(),p=val('rp');
+ if(!n||!e||!p)return alert('Preencha os campos obrigatórios.');
+ if(S.users.some(x=>x.email.toLowerCase()===e.toLowerCase()))return alert('Este e-mail já está cadastrado.');
+ const u={id:Date.now().toString(),name:n,email:e,password:p,grade:val('rg'),uf:val('ru'),points:0,xp:0,level:1,streak:1,avatar:{...DA},history:[],daily:{date:dk(),progress:{},done:{}},lastStudy:null};
+ S.users=[...S.users,u];ls.set('@vdf_users',S.users);ls.set('@vdf_current_user',u);S.user=u;go('dashboard')}
+function logout(){ls.del('@vdf_current_user');S.user=null;go('login')}
+function social(p){alert(`Opção de login com ${p} acionada.`)}
+async function saveProfile(){
+ const n=val('pn').trim(),e=val('pe').trim().toLowerCase();
+ if(!n||!e)return alert('Nome e e-mail são obrigatórios.');
+ if(S.users.some(u=>u.id!==S.user.id&&(u.email||'').toLowerCase()===e))return alert('Este e-mail já está sendo usado por outra conta.');
+ await persist({name:n,email:e,grade:val('pg').trim(),uf:val('pu').trim().toUpperCase()});
+ alert('Perfil atualizado com sucesso!');go('dashboard')}
+
+// ===== Avatar editor =====
+function openAv(){S.draft={...(S.user.avatar||DA)};S.modal=false;S.avEd=true;R()}
+function setDraft(k,v){S.draft[k]=v;R()}
+async function saveAv(){await persist({avatar:S.draft});S.avEd=false;R()}
+
+// ===== Voz =====
+function speak(){
+ if(!('speechSynthesis' in window))return alert('Seu navegador não suporta leitura por voz.');
+ speechSynthesis.cancel();const q=S.qs[S.qi];
+ const t=`Enunciado: ${q.statement}. Alternativas: `+q.options.map((o,i)=>`Opção ${String.fromCharCode(65+i)}: ${o}`).join('. ');
+ const u=new SpeechSynthesisUtterance(t);u.lang='pt-BR';u.rate=.95;
+ u.onend=u.onerror=()=>{S.speaking=false;if(S.screen==='quiz')R()};
+ S.speaking=true;speechSynthesis.speak(u);R()}
+function stopSpeech(){try{speechSynthesis.cancel()}catch(e){}S.speaking=false}
+
+// ===== Quiz =====
+function stopTimer(){clearInterval(S.timer);S.timer=null}
+function startQuiz(m){
+ stopSpeech();stopTimer();const mode=m||S.mode;S.mode=mode;
+ const pri=q=>q.subject==='Português'||q.subject==='Matemática';
+ let f=[...QS];
+ if(mode==='Vestibulares'){
+  const pool=QS.filter(q=>q.vestibular===S.vest&&q.difficulty===S.diff),w=S.subj==='Principais';
+  f=[...shuf(pool.filter(q=>pri(q)===w)),...shuf(pool.filter(q=>pri(q)!==w))];
+ }else if(mode==='Simulado')f=QS.filter(q=>q.vestibular===S.vest);
+ if(f.length<NQ)f=[...f,...shuf(QS.filter(q=>!f.includes(q)))];
+ S.qs=mode==='Vestibulares'?shuf(f.slice(0,NQ)):shuf(f).slice(0,NQ);
+ S.qi=0;S.sel=null;S.conf=false;S.ans=[];
+ if(mode==='Desafio'){S.time=T0;S.timer=setInterval(()=>{S.time--;if(S.time<=0){S.time=0;finish();return}R()},1000)}
+ S.screen='quiz';S.modal=false;R()}
+function pick(i){if(!S.conf){S.sel=i;R()}}
+function confirmA(){
+ if(S.sel===null||S.conf)return;stopSpeech();const q=S.qs[S.qi],l=String.fromCharCode(65+S.sel),ok=l===q.correctAnswer;
+ S.ans.push({ok,picked:l});
+ if(S.mode==='Desafio')S.time=ok?Math.min(99,S.time+TB):Math.max(0,S.time-TP);
+ S.conf=true;R()}
+function next(){stopSpeech();if(S.qi+1<S.qs.length){S.qi++;S.sel=null;S.conf=false;R()}else finish()}
+async function finish(){
+ stopSpeech();stopTimer();const A=S.ans,tc=A.filter(a=>a.ok).length,xg=tc*XPC;
+ const rev=S.qs.map((q,i)=>{const a=A[i];return{n:i+1,id:q.id,subject:q.subject,statement:q.statement,explanation:q.explanation,fonte:fonte(q),picked:a?a.picked:null,correct:q.correctAnswer,status:!a?'blank':a.ok?'right':'wrong'}});
+ let bonus=0,done=[],lvl=false;
+ if(S.user){
+  const tot=S.qs.length,perfect=tot>0&&tc===tot;
+  const mp=rev.filter(r=>r.status!=='blank'&&(r.subject==='Português'||r.subject==='Matemática')).length;
+  const inc={quiz1:1,correct5:tc,mathpt:mp,challenge:S.mode==='Desafio'?1:0,hard:S.mode==='Vestibulares'&&S.diff==='Difícil'?1:0,perfect:perfect?1:0};
+  const d=getDaily(S.user),progress={...d.progress},dn={...d.done};
+  TASKS.forEach(t=>{progress[t.id]=Math.min(t.g,(progress[t.id]||0)+(inc[t.id]||0));if(!dn[t.id]&&progress[t.id]>=t.g){dn[t.id]=true;done.push(t);bonus+=t.xp}});
+  const today=dk();let streak=S.user.streak||1;
+  if(S.user.lastStudy!==today)streak=S.user.lastStudy===ydk()?streak+1:1;
+  const gain=xg+bonus,nxp=(S.user.xp||0)+gain,nl=Math.min(Math.floor(nxp/100)+1,MAXL);
+  lvl=nl>(S.user.level||1);
+  const h={id:Date.now().toString(),mode:S.mode,vestibular:S.vest,difficulty:S.mode==='Vestibulares'?S.diff:null,correct:tc,total:tot,answered:A.length,marks:rev.map(r=>r.status),xp:gain,date:new Date().toLocaleDateString('pt-BR')};
+  await persist({xp:nxp,points:(S.user.points||0)+gain,level:nl,streak,lastStudy:today,daily:{date:today,progress,done:dn},history:[h,...(S.user.history||[])]});
+ }
+ S.r={rev,tc,xg,bonus,done,lvl};S.screen='result';R()}
+
+// ===== Telas =====
+function header(){const u=S.user;return `<div class="hdr"><b>🌿 VOZ DO FUTURO</b><button class="pbtn" onclick="S.modal=true;R()">${av(u.avatar,32)}<span style="color:var(--yellow)">🔥 ${u.streak||1}d</span><span style="color:var(--green)">⭐ ${u.points||0} XP</span></button></div>`}
+function navbar(){return `<div class="nav"><button onclick="go('dashboard')">🏠 Início</button><button onclick="go('studySetup')">📚 Estudar</button><button onclick="go('ranking')">🏆 Ranking</button><button onclick="go('history')">📊 Histórico</button></div>`}
+function dailyHTML(){
+ const d=getDaily(S.user),dc=TASKS.filter(t=>d.done[t.id]).length,tx=TASKS.reduce((s,t)=>s+t.xp,0),ex=TASKS.filter(t=>d.done[t.id]).reduce((s,t)=>s+t.xp,0);
+ return `<div class="big"><div class="row" style="justify-content:space-between"><div><b style="font-size:17px">🎯 Metas diárias</b><div class="sec sm">${dc}/${TASKS.length} concluídas • ${ex}/${tx} XP bônus hoje</div></div>${dc===TASKS.length?'<span style="font-size:28px">🏆</span>':''}</div>${pb(dc,TASKS.length,'var(--green)')}`+
+ TASKS.map(t=>{const dn=!!d.done[t.id],pr=Math.min(t.g,d.progress[t.id]||0);
+ return `<div class="task ${dn?'done':''}"><div class="tc">${dn?'✓':t.i}</div><div style="flex:1"><div style="font-size:13px;font-weight:bold;${dn?'color:var(--sec);text-decoration:line-through':''}">${t.t}</div>${dn?'<div style="color:var(--green);font-size:11px;font-weight:bold;margin-top:3px">Tarefa concluída!</div>':pb(pr,t.g,'var(--blue)')+`<div class="sec" style="font-size:10px;margin-top:2px">${pr}/${t.g}</div>`}</div><div class="xp">${dn?'✓ ':''}+${t.xp} XP</div></div>`}).join('')+'</div>'}
+function profileModal(){const u=S.user;
+ return `<div class="ov" onclick="S.modal=false;R()"><div class="md" onclick="event.stopPropagation()"><div style="display:flex;justify-content:center">${av(u.avatar,120)}</div><div class="pill" style="display:inline-block;margin-top:-6px">Nível ${u.level||1}</div><div style="font-size:18px;font-weight:bold;margin-top:10px">${esc(u.name)}</div><div class="sec sm" style="margin-bottom:10px">${esc(u.email)}</div>
+ <div class="row" style="background:var(--bg2);border-radius:14px;padding:11px 0;margin:14px 0;justify-content:space-around"><div><b>${u.xp||0}</b><div class="sec" style="font-size:10px">XP</div></div><div><b>${u.streak||1}</b><div class="sec" style="font-size:10px">Dias</div></div><div><b>${(u.history||[]).length}</b><div class="sec" style="font-size:10px">Quizzes</div></div></div>
+ <button class="btn" style="background:var(--blue);margin-bottom:9px;border-bottom:0" onclick="go('profileEdit')">✏️ Editar informações</button>
+ <button class="btn" style="background:var(--purple);margin-bottom:9px;border-bottom:0" onclick="openAv()">🎨 Personalizar meu avatar</button>
+ <button class="btn" style="background:var(--red);border-bottom-color:#D63636" onclick="logout()">SAIR DA CONTA</button></div></div>`}
+function avEditor(){
+ const O={skin:['#C98B5A','#F1C27D','#8D5524','#FFDBAC','#E0AC69'],hair:['#241A17','#061311','#5A3825','#F5C542','#E85D5D'],paint:['none','#E85D5D','#4EA8DE','#49B675','#F5C542'],accessory:['none','glasses','cocar','necklace'],clothes:['green','blue','orange','purple']};
+ const T={skin:'Tom de pele',hair:'Cabelo',paint:'Pintura facial',accessory:'Acessório',clothes:'Roupa'};
+ const E={none:'✕',glasses:'👓',cocar:'🪶',necklace:'📿',green:'🟢',blue:'🔵',orange:'🟠',purple:'🟣'};
+ const rows=Object.keys(O).map(k=>{const col=k!=='accessory'&&k!=='clothes';
+  return `<div style="margin-bottom:14px"><div style="font-size:13px;font-weight:bold;margin-bottom:8px">${T[k]}</div><div style="display:flex;overflow-x:auto;padding-bottom:4px">`+O[k].map(v=>`<button class="ch ${S.draft[k]===v?'on':''}" style="${col&&v!=='none'?'background:'+v:''}" onclick="setDraft('${k}','${v}')">${col?(v==='none'?'✕':''):E[v]}</button>`).join('')+'</div></div>'}).join('');
+ return `<div class="ov bt"><div class="ed"><div class="row" style="justify-content:space-between"><div><div style="font-size:21px;font-weight:900">Personalizar avatar</div><div class="sec sm">Monte um visual do seu jeito</div></div><button onclick="S.avEd=false;R()" style="width:36px;height:36px;border-radius:50%;border:0;background:var(--bg2);color:var(--text);font-size:24px">×</button></div>
+ <div style="background:var(--bg2);border:1px solid var(--border);border-radius:20px;height:155px;display:flex;align-items:center;justify-content:center;margin:10px 0">${av(S.draft,130)}</div>${rows}
+ <div class="row"><button class="btn" style="flex:1;width:auto;background:var(--bg2)" onclick="S.avEd=false;R()">Cancelar</button><button class="btn" style="flex:1;width:auto;background:var(--green)" onclick="saveAv()">✓ Salvar avatar</button></div></div></div>`}
+
+function screenHTML(){
+ const u=S.user,sc=S.screen;
+ if(sc==='login')return `<div class="body"><div class="auth"><div class="logo">🏹 VOZ DO FUTURO</div><div class="sub">Plataforma Educacional Gamificada</div><input id="le" placeholder="E-mail" autocapitalize="none"><input id="lp" type="password" placeholder="Senha"><button class="btn" style="background:var(--yellow);color:var(--black)" onclick="login()">Entrar</button><button class="btn" style="background:var(--card);margin-top:10px" onclick="go('register')">Criar Conta</button>${socialHTML('— OU ENTRE COM —')}</div></div>`;
+ if(sc==='register')return `<div class="body"><div class="auth"><div class="logo">CRIAR CONTA</div><br><input id="rn" placeholder="Nome Completo *"><input id="re" placeholder="E-mail *" autocapitalize="none"><input id="rp" type="password" placeholder="Senha *"><input id="rg" placeholder="Série/Ano (ex: 3º Ano EM)"><input id="ru" placeholder="Estado/UF (ex: AM)"><button class="btn" style="background:var(--green)" onclick="register()">Cadastrar</button>${socialHTML('— OU CADASTRE-SE COM —')}<button style="background:none;border:0;color:var(--yellow);margin-top:15px" onclick="go('login')">Já tem conta? Entrar</button></div></div>`;
+ let main='',nav=true,hd=true;
+ if(sc==='dashboard'){const st=stats(u),fn=(u.name||'Estudante').trim().split(' ')[0],xi=(u.xp||0)%100,nl=Math.min((u.level||1)+1,MAXL);
+  main=`<div class="big" onclick="S.modal=true;R()"><div class="row" style="flex-wrap:nowrap">${av(u.avatar,64)}<div style="flex:1"><div style="font-size:19px;font-weight:bold">Olá, ${esc(fn)}! 👋</div><div class="sec sm">${u.grade?esc(u.grade)+' • '+esc(u.uf||'BR'):'Bora estudar hoje?'}</div></div><div class="pill">Nível ${u.level||1}</div></div><div class="sec sm" style="font-weight:bold;margin-top:14px">${xi}/100 XP para o nível ${nl}</div>${pb(xi,100)}<div class="row" style="flex-wrap:nowrap;margin-top:14px"><div class="chip"><b>🔥 ${u.streak||1}</b><small>dias seguidos</small></div><div class="chip"><b>⭐ ${u.points||0}</b><small>XP total</small></div><div class="chip"><b>🎯 ${st.acc}%</b><small>precisão</small></div></div></div>
+  <button class="btn" style="background:var(--green);margin-bottom:14px;padding:16px" onclick="startQuiz('Vestibulares')"><span style="font-size:18px">▶ Começar agora</span><br><span style="font-size:12px;opacity:.85">${S.vest} • ${S.diff}</span></button>${dailyHTML()}
+  <h2>Escolha seu vestibular</h2><div class="row" style="flex-wrap:nowrap">${[['ENEM','var(--blue)'],['PSC','var(--orange)'],['SIS','var(--purple)']].map(([v,c])=>`<button class="q3" style="border-color:${c};color:${c};background:var(--card)" onclick="S.vest='${v}';S.mode='Vestibulares';go('studySetup')">${v}</button>`).join('')}</div>
+  <h2>Modos de Estudo</h2><div class="grid"><button class="gc" style="border-top-color:var(--green)" onclick="S.mode='Vestibulares';go('studySetup')"><span style="font-size:28px">📚</span><b>Vestibulares</b><small>ENEM, PSC e SIS • Português, Matemática e outras matérias.</small></button><button class="gc" style="border-top-color:var(--blue)" onclick="startQuiz('Simulado')"><span style="font-size:28px">📝</span><b>Simulado</b><small>Prova adaptada rápida.</small></button><button class="gc" style="border-top-color:var(--yellow)" onclick="startQuiz('Desafio')"><span style="font-size:28px">⚡</span><b>Desafio 50s</b><small>Corrida contra o tempo!</small></button><button class="gc" style="border-top-color:var(--purple)" onclick="startQuiz('Provão')"><span style="font-size:28px">🎯</span><b>Provão Geral</b><small>Questões aleatórias gerais.</small></button></div>
+  <div style="text-align:center;margin:18px 0 24px"><button style="background:none;border:0;color:var(--sec);font-weight:bold" onclick="logout()">Sair da conta</button></div>`}
+ else if(sc==='profileEdit'){const st=stats(u),xi=(u.xp||0)%100,nl=Math.min((u.level||1)+1,MAXL),un=ACH.filter(a=>a.c(st,u)).length;
+  main=`<button style="background:none;border:0;color:var(--yellow);font-weight:bold;margin-bottom:10px" onclick="go('dashboard')">← Voltar</button><h2>👤 Meu Perfil</h2>
+  <div class="big" style="text-align:center"><div style="display:flex;justify-content:center">${av(u.avatar,130)}</div><div style="font-size:22px;font-weight:800">${esc(u.name)}</div><div class="sec sm">${esc(u.email)}</div>${u.grade||u.uf?`<div class="sec sm">${[u.grade,u.uf].filter(Boolean).map(esc).join(' • ')}</div>`:''}<div class="pill" style="display:inline-block;margin-top:10px">🏆 Nível ${u.level||1}</div><div class="sec sm" style="font-weight:bold;margin-top:12px">${xi}/100 XP para o nível ${nl}</div>${pb(xi,100)}<button class="btn" style="background:var(--purple);margin-top:16px" onclick="openAv()">🎨 Editar meu avatar</button></div>
+  <h3>📊 Meu desempenho</h3><div class="sg"><div><b>⭐ ${u.xp||0}</b><small>XP total</small></div><div><b>🔥 ${u.streak||1}</b><small>Dias seguidos</small></div><div><b>🎯 ${st.acc}%</b><small>Precisão</small></div><div><b>📝 ${st.tq}</b><small>Quizzes</small></div><div><b style="color:var(--green)">✅ ${st.tc}</b><small>Acertos</small></div><div><b style="color:var(--red)">❌ ${st.tw}</b><small>Erros</small></div></div>
+  <h3>🏅 Conquistas (${un}/${ACH.length})</h3><div class="ag">${ACH.map(a=>{const ok=a.c(st,u);return `<div class="${ok?'':'lk'}"><span>${ok?a.i:'🔒'}</span><b>${a.t}</b><small>${a.d}</small></div>`}).join('')}</div>${dailyHTML()}
+  <h3>✏️ Editar informações</h3><div class="card"><div class="sec" style="font-weight:bold;margin-bottom:6px">Nome Completo:</div><input id="pn" value="${esc(u.name)}"><div class="sec" style="font-weight:bold;margin-bottom:6px">E-mail:</div><input id="pe" value="${esc(u.email)}" autocapitalize="none"><div class="sec" style="font-weight:bold;margin-bottom:6px">Série/Ano:</div><input id="pg" value="${esc(u.grade)}" placeholder="Ex: 3º Ano Ensino Médio"><div class="sec" style="font-weight:bold;margin-bottom:6px">Estado / UF:</div><input id="pu" value="${esc(u.uf)}" placeholder="Ex: AM"><button class="btn" style="background:var(--green)" onclick="saveProfile()">Salvar Alterações</button></div>`}
+ else if(sc==='studySetup'){
+  const chips=(arr,key)=>`<div class="row" style="margin-bottom:10px">${arr.map(v=>`<button class="fc ${S[key]===v?'on':''}" onclick="S.${key}='${v}';R()">${v}</button>`).join('')}</div>`;
+  main=`<button style="background:none;border:0;color:var(--yellow);font-weight:bold;margin-bottom:10px" onclick="go('dashboard')">← Voltar</button><h2>Configurar Estudo</h2><div class="sec" style="font-weight:bold;margin-bottom:6px">Vestibular:</div>${chips(['ENEM','PSC','SIS'],'vest')}
+  <div class="sec" style="font-weight:bold;margin:6px 0">Matérias:</div><div style="background:var(--card);border-radius:16px;border:1px solid var(--border);overflow:hidden;margin-bottom:14px"><button class="sm2 ${S.subj==='Principais'?'on':''}" onclick="S.subj='Principais';R()"><span style="font-size:23px">⭐</span><span style="flex:1"><b>Português + Matemática</b><br><small class="sec">Matérias prioritárias do app</small></span>${S.subj==='Principais'?'<b style="color:var(--green);font-size:20px">✓</b>':''}</button><button class="sm2 ${S.subj==='Outras'?'on':''}" onclick="S.subj='Outras';R()"><span style="font-size:23px">📚</span><span style="flex:1"><b>Outras matérias</b><br><small class="sec">História, Geografia, Biologia, Física, Química...</small></span>${S.subj==='Outras'?'<b style="color:var(--green);font-size:20px">✓</b>':''}</button></div>
+  <div class="sec" style="font-weight:bold;margin-bottom:6px">Dificuldade:</div>${chips(['Fácil','Médio','Difícil'],'diff')}<button class="btn" style="background:var(--green);margin-top:20px" onclick="startQuiz('Vestibulares')">Iniciar Quiz</button>`}
+ else if(sc==='ranking'||sc==='history'){
+  main=`<button style="background:none;border:0;color:var(--yellow);font-weight:bold;margin-bottom:10px" onclick="go('dashboard')">← Voltar</button><h2>${sc==='ranking'?'🏆 Ranking Geral':'📊 Histórico de Estudos'}</h2>`;
+  if(sc==='ranking')main+=[...S.users].sort((a,b)=>(b.points||0)-(a.points||0)).map((x,i)=>`<div class="card row" style="justify-content:space-between;flex-wrap:nowrap"><div class="row" style="flex-wrap:nowrap"><b style="color:var(--yellow)">${i+1}º</b>${av(x.avatar,40)}<b>${esc(x.name)}</b></div><b style="color:var(--yellow)">${x.points||0} XP</b></div>`).join('');
+  else{const h=u.history||[];main+=h.length?h.map(x=>`<div class="card"><b style="color:var(--yellow)">Modo: ${x.mode}</b><div class="sec">Data: ${x.date}</div>${x.vestibular?`<div class="sec">${x.vestibular}${x.difficulty?' • '+x.difficulty:''}</div>`:''}<div style="margin-top:5px">Acertos: ${x.correct}/${x.total} • Erros: ${Math.max((x.answered??x.total)-x.correct,0)}</div>${x.marks?`<div class="row" style="margin:4px 0">${x.marks.map((m,i)=>`<b style="color:${m==='right'?'var(--green)':m==='wrong'?'var(--red)':'var(--sec)'}">Q${i+1} ${m==='right'?'✓':m==='wrong'?'✕':'–'}</b>`).join('')}</div>`:''}<div style="color:var(--green)">+${x.xp} XP</div></div>`).join(''):'<div class="sec" style="text-align:center">Nenhum histórico encontrado.</div>'}}
+ else if(sc==='quiz'){hd=false;nav=false;const q=S.qs[S.qi];if(!q)return'';const L=i=>String.fromCharCode(65+i);
+  let fb='';if(S.conf){const ok=L(S.sel)===q.correctAnswer;fb=`<div class="fb"><b style="color:${ok?'var(--green)':'var(--red)'}">${ok?'✓ Resposta Correta':'✕ Resposta Incorreta'}</b><div class="sec" style="margin-top:4px">${esc(q.explanation)}</div></div>`}
+  return `<div class="hdr"><button style="background:none;border:0;color:var(--yellow);font-weight:bold" onclick="go('dashboard')">✖ Sair</button><b>Q${S.qi+1}/${S.qs.length}</b>${S.mode==='Desafio'?`<b style="font-size:18px;color:${S.time<=10?'var(--red)':'var(--yellow)'}">⏱️ ${S.time}s</b>`:'<span></span>'}</div><div class="body">${pb(S.qi+1,S.qs.length)}
+  <div style="margin:10px 0"><button class="btn" style="width:auto;display:inline-block;padding:8px 14px;border-radius:20px;font-size:13px;background:${S.speaking?'var(--red)':'var(--blue)'}" onclick="${S.speaking?'stopSpeech();R()':'speak()'}">${S.speaking?'⏹️ Parar Áudio':'🔊 Ouvir Questão'}</button></div>
+  <div style="margin-top:14px"><span class="sc">${q.subject}</span><span class="sc">${q.difficulty}</span></div><div class="sec" style="font-size:11px;margin-top:6px">📌 ${esc(fonte(q))}</div>
+  <div style="font-size:16px;line-height:22px;margin:15px 0">${esc(q.statement)}</div>
+  ${q.options.map((o,i)=>{let bg='var(--card)';if(S.conf){if(L(i)===q.correctAnswer)bg='var(--cl)';else if(S.sel===i)bg='var(--red)'}else if(S.sel===i)bg='var(--border)';return `<button class="opt" style="background:${bg}" ${S.conf?'disabled':''} onclick="pick(${i})"><b>${L(i)}</b><span style="flex:1">${esc(o)}</span></button>`}).join('')}${fb}
+  ${S.conf?`<button class="btn" style="background:var(--green);margin-top:15px" onclick="next()">Próxima</button>`:`<button class="btn" style="background:var(--yellow);color:var(--black);margin-top:15px" onclick="confirmA()">Confirmar</button>`}</div>`}
+ else if(sc==='result'){hd=false;nav=false;const r=S.r,rev=r.rev,tot=rev.length,ri=rev.filter(x=>x.status==='right').map(x=>x.n),wr=rev.filter(x=>x.status==='wrong').map(x=>x.n),bl=rev.filter(x=>x.status==='blank').map(x=>x.n),pct=tot?Math.round(ri.length/tot*100):0;
+  const em=pct===100?'🏆':pct>=70?'🎉':pct>=40?'💪':'📖',msg=pct===100?'Gabaritou! Perfeito!':pct>=70?'Mandou muito bem!':pct>=40?'Bom começo, continue praticando!':'Revise o gabarito e tente de novo!',lt=l=>l.length?l.map(n=>'Q'+n).join(', '):'—';
+  const col=s=>s==='right'?'var(--green)':s==='wrong'?'var(--red)':'var(--sec)';
+  return `<div class="body" style="padding-bottom:30px"><div class="big" style="text-align:center"><div style="font-size:48px">${em}</div><div style="color:var(--yellow);font-size:24px;font-weight:bold">Quiz Finalizado!</div><div class="sec" style="margin:4px 0 14px">${msg}</div><div class="row" style="flex-wrap:nowrap"><div class="sbox"><b style="color:var(--green)">${ri.length}</b><small class="sec">Certos</small></div><div class="sbox"><b style="color:var(--red)">${wr.length}</b><small class="sec">Erros</small></div>${bl.length?`<div class="sbox"><b style="color:var(--sec)">${bl.length}</b><small class="sec">Em branco</small></div>`:''}<div class="sbox"><b style="color:var(--yellow)">${pct}%</b><small class="sec">Aproveit.</small></div></div><div style="color:var(--green);font-size:16px;font-weight:bold;margin-top:10px">+${r.xg} XP pelos acertos</div>${r.bonus?`<div style="color:var(--green);font-size:16px;font-weight:bold;margin-top:6px">+${r.bonus} XP de metas diárias 🎯</div>`:''}${r.lvl?`<div style="color:var(--yellow);font-size:16px;font-weight:bold;margin-top:8px">⬆️ Subiu para o nível ${u.level}!</div>`:''}</div>
+  ${r.done.length?`<div style="background:rgba(88,204,2,.12);border:1px solid var(--green);border-radius:14px;padding:14px;margin-bottom:14px"><b style="color:var(--green)">🎉 Meta concluída!</b>${r.done.map(t=>`<div style="font-size:13px;margin-top:3px">✓ ${t.t} — +${t.xp} XP</div>`).join('')}</div>`:''}
+  <h3 style="font-size:17px">📋 Gabarito</h3><div class="row" style="margin-bottom:12px">${rev.map(x=>`<div class="mk" style="${x.status==='right'?'background:var(--green);border-color:var(--green)':x.status==='wrong'?'background:var(--red);border-color:var(--red)':''}">Q${x.n}<br>${x.status==='right'?'✓':x.status==='wrong'?'✕':'–'}</div>`).join('')}</div>
+  <div class="card"><b style="color:var(--green)">✅ Acertou: ${lt(ri)}</b><br><b style="color:var(--red);display:block;margin-top:6px">❌ Errou: ${lt(wr)}</b>${bl.length?`<b class="sec" style="display:block;margin-top:6px">⏱️ Não respondeu: ${lt(bl)}</b>`:''}</div>
+  ${rev.map(x=>`<div class="rv" style="${x.status!=='blank'?'border-left-color:'+col(x.status):''}"><div class="row" style="justify-content:space-between"><b style="color:var(--yellow);font-size:13px">Q${x.n} • ${x.subject}</b><b style="font-size:13px;color:${col(x.status)}">${x.status==='right'?'✓ Acertou':x.status==='wrong'?'✕ Errou':'– Em branco'}</b></div><div class="sec sm" style="margin-top:3px">${esc(x.statement)}</div><div class="sec sm" style="margin-top:3px">Sua resposta: <b style="color:#fff">${x.picked||'—'}</b> &nbsp; Gabarito: <b style="color:var(--green)">${x.correct}</b></div>${x.status!=='right'?`<div class="sm" style="margin-top:6px">💡 ${esc(x.explanation)}</div>`:''}<div class="sec" style="font-size:10px;margin-top:6px">📌 ${esc(x.fonte)}</div></div>`).join('')}
+  <button class="btn" style="background:var(--yellow);color:var(--black);margin-top:16px" onclick="startQuiz(S.mode)">🔁 Jogar novamente</button><button class="btn" style="background:var(--green);margin-top:10px" onclick="go('dashboard')">Voltar ao Início</button></div>`}
+ return (hd?header():'')+`<div class="body">${main}</div>`+(nav?navbar():'')}
+function socialHTML(t){return `<div class="sec" style="text-align:center;margin:18px 0;font-size:11px;font-weight:bold;letter-spacing:1px">${t}</div><div class="row" style="flex-wrap:nowrap"><button class="btn" style="background:var(--card);border:1px solid var(--border);font-size:13px;padding:10px" onclick="social('Google')">🌐 Google</button><button class="btn" style="background:var(--card);border:1px solid var(--border);font-size:13px;padding:10px" onclick="social('Apple')">🍎 Apple</button></div>`}
+
+function R(){
+ const a=$('app'),sy=a.querySelector('.body')?.scrollTop||0,keep=S.screen==='quiz'&&S.timer;
+ a.innerHTML=screenHTML()+(S.user&&S.modal?profileModal():'')+(S.user&&S.avEd?avEditor():'');
+ if(keep){const b=a.querySelector('.body');if(b)b.scrollTop=sy}}
+window.addEventListener('beforeunload',stopSpeech);
+R();
+</script>
+</body>
+</html>
